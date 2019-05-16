@@ -39,16 +39,16 @@
                 collapse: false,
                 items: [
                     {
-                        // icon: 'el-icon-lx-home',
-                        icon: 'el-iconfont-dumbbell',
-                        index: 'dashboard',
-                        title: '系统首页'
-                    },
-                    {
                         icon: 'el-iconfont-chat',
                         index: 'queryOrderList',
                         title: '订单列表'
                     },
+                    // {
+                    //     // icon: 'el-icon-lx-home',
+                    //     icon: 'el-iconfont-dumbbell',
+                    //     index: 'dashboard',
+                    //     title: '系统首页'
+                    // },
                     {
                         icon: 'el-iconfont-treadmill',
                         index: 'queryShopList',

@@ -7,22 +7,21 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>
+                <el-button type="primary" icon="add" class="handle-del mr10" @click="handleAdd">新增</el-button>
                 <el-select v-model="selectCate" placeholder="筛选类型" @change="selectCateChange" class="handle-select mr10">
                     <el-option label="全部" value=""></el-option>
                     <el-option key="1" label="配送" value="1"></el-option>
                     <el-option key="2" label="自提" value="2"></el-option>
                 </el-select>
-                <el-input v-model="select_word" placeholder="用户名" class="handle-input mr10"></el-input>
+                <el-input v-model="select_word" placeholder="客户账号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="search" @click="search">搜索</el-button>
             </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="40" align="center"></el-table-column>
                 <el-table-column prop="orderSeq" label="订单号" align="center" width="120"/>
-                <el-table-column prop="userName" label="用户名" align="center" width="100"/>
-                <el-table-column prop="shopName" label="店铺名" align="center"/>
-                <el-table-column prop="delivery" label="类型" :formatter="converse" align="center"/>
-                <el-table-column prop="deliveryDate" sortable :formatter="dateFormat" label="配送时间" align="center" width="150"/>
+                <el-table-column prop="consumerName" label="客户账号" align="center" width="100"/>
+                <el-table-column prop="mark" label="备注" align="center"/>
+                <el-table-column prop="pic" label="设计图" align="center"/>
                 <el-table-column prop="price" label="价格" align="center"/>
                 <el-table-column prop="address" label="地址" align="center"/>
                 <el-table-column label="操作" width="180" align="center">
@@ -37,15 +36,41 @@
                 </el-pagination>
             </div>
         </div>
-
+        <!-- 新增弹出框 -->
+        <el-dialog title="新增" :visible.sync="addVisible" width="40%">
+            <el-form ref="form" :model="form" label-width="100px">
+                <el-form-item label="订单号">
+                    <el-input v-model="form.orderSeq"></el-input>
+                </el-form-item>
+                <el-form-item label="客户账号">
+                    <el-input v-model="form.consumerName"></el-input>
+                </el-form-item>
+                <el-form-item label="备注">
+                    <el-input type="textarea" v-model="form.mark"></el-input>
+                </el-form-item>
+                <el-form-item label="设计图">
+                    <el-input v-model="form.pic"></el-input>
+                </el-form-item>
+                <el-form-item label="价格">
+                    <el-input v-model="form.price"></el-input>
+                </el-form-item>
+                <el-form-item label="地址">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saveEdit">确 定</el-button>
+            </span>
+        </el-dialog>
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
             <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="订单号">
                     <el-input v-model="form.orderSeq"></el-input>
                 </el-form-item>
-                <el-form-item label="userName">
-                    <el-input v-model="form.userName"></el-input>
+                <el-form-item label="consumerName">
+                    <el-input v-model="form.consumerName"></el-input>
                 </el-form-item>
                 <el-form-item label="shopName">
                     <el-input v-model="form.shopName"></el-input>
@@ -62,7 +87,6 @@
                 <el-form-item label="地址">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
-
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -96,11 +120,12 @@
                 del_list: [],
                 is_search: false,
                 editVisible: false,
+                addVisible: false,
                 delVisible: false,
                 form: {
                     id: "",
                     orderSeq:"",
-                    userName:"",
+                    consumerName:"",
                     shopName:"",
                     delivery:"",
                     deliveryDate:"",
@@ -142,8 +167,7 @@
                 this.$axios.post(this.url, {
                     currentPage: this.curPage,
                     pageSize : this.pageSize,
-                    userName : this.select_word,
-                    delivery : this.selectCate
+                    consumerName : this.select_word
                 }).then((res) => {
                     this.tableData = res.data.data.list;
                     this.totalCount = res.data.data.totalCount;
@@ -175,13 +199,24 @@
             filterTag(value, row) {
                 return row.tag === value;
             },
+            handleAdd() {
+                this.form = {
+                    "orderSeq": "",
+                    "consumerName": "",
+                    "mark": "",
+                    "pic": "",
+                    "price": "",
+                    "address": "",
+                }
+                this.addVisible = true;
+            },
             handleEdit(index, row) {
                 this.idx = index;
                 const item = this.tableData[index];
                 this.form = {
                     "id": item.id,
                     "orderSeq": item.orderSeq,
-                    "userName": item.userName,
+                    "consumerName": item.consumerName,
                     "shopName": item.shopName,
                     "delivery": item.delivery,
                     "deliveryDate": item.deliveryDate,

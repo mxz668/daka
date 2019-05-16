@@ -49,9 +49,9 @@
                 }
                 var url = "/user/login";
                 axios.post(url, model).then(res => {
-                    if (res.data.rspCode = '000000') {
+                    if (res.data.rspCode = '0000') {
                         localStorage.setItem('ms_username',this.ruleForm.username);
-                        this.$router.push('/dashboard');
+                        this.$router.push('/queryOrderList');
                     } else {
                         this.$message({
                             showClose: true,

@@ -1,5 +1,8 @@
 package com.daka.service;
 
+import com.daka.model.ResponseModel;
+import com.daka.model.UserModel;
+
 /**
  * 描述：
  *
@@ -8,4 +11,6 @@ package com.daka.service;
  * @Version 1.0
  */
 public interface UserService {
+
+    ResponseModel insertUser(UserModel user);
 }

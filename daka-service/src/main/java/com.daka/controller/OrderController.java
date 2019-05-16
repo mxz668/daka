@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("order")
+public class OrderController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("login")
-    public ResponseModel login(){
+    @PostMapping("queryOrderList")
+    public ResponseModel queryOrderList(){
         ResponseModel responseModel = new ResponseModel();
         System.out.println("login");
         return responseModel;

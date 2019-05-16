@@ -18,15 +18,15 @@ export default new Router({
             meta: { title: '自述文件' },
             children:[
                 {
-                    path: '/dashboard',
-                    component: resolve => require(['../components/page/Dashboard.vue'], resolve),
-                    meta: { title: '系统首页' }
-                },
-                {
                     path: '/queryOrderList',
                     component: OrderListTable,
                     meta: { title: '订单列表' }
                 },
+                // {
+                //     path: '/dashboard',
+                //     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
+                //     meta: { title: '系统首页' }
+                // },
                 {
                     path: '/queryShopList',
                     component: resolve => require(['../components/page/list/ShopListTable.vue'], resolve),
