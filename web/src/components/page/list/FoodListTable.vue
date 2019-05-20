@@ -2,7 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i>食品列表</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i>账单列表</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">

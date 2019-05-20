@@ -6,11 +6,11 @@
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
     <typeAliases>
-        <package name="com.anji.collect.core.model"/>
+        <package name="com.daka.model"/>
     </typeAliases>
-    <!--<plugins>-->
-        <!--<plugin interceptor="com.anji.collect.common.paginator.OffsetLimitInterceptor">-->
-            <!--<property name="dialectClass" value="com.anji.collect.common.paginator.dialect.MySQLDialect" />-->
-        <!--</plugin>-->
-    <!--</plugins>-->
+    <plugins>
+        <plugin interceptor="com.daka.pageinator.OffsetLimitInterceptor">
+            <property name="dialectClass" value="com.daka.pageinator.support.MySQLDialect" />
+        </plugin>
+    </plugins>
 </configuration>

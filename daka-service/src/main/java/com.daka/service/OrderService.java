@@ -1,5 +1,6 @@
 package com.daka.service;
 
+import com.daka.model.OrderModel;
 import com.daka.model.ResponseModel;
 
 /**
@@ -11,5 +12,7 @@ import com.daka.model.ResponseModel;
  */
 public interface OrderService {
 
-    ResponseModel addOrder();
+    ResponseModel addOrder(OrderModel order);
+
+    ResponseModel queryOrderList(OrderModel order);
 }

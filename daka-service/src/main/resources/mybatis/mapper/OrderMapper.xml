@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.daka.mapper.OrderMapper" >
+
+    <insert id="addOrder" parameterType="com.daka.model.OrderModel">
+    insert into t_order (
+            order_seq,
+            consumer_name,
+            receiptor,
+            handler,
+            mark,
+            price,
+            address
+        )values (
+            #{orderSeq},
+            #{consumerName},
+            #{receiptor},
+            #{handler},
+            #{mark},
+            #{price},
+            #{address}
+            )
+  </insert>
+
+    <select id="queryOrderList" resultType="com.daka.model.OrderModel">
+        select * from t_order
+        <where>
+            <if test="orderSeq != null and orderSeq != ''">
+                and order_seq = #{orderSeq}
+            </if>
+            <if test="consumerName != null and consumerName != ''">
+                and consumer_name = #{consumerName}
+            </if>
+        </where>
+    </select>
+</mapper>

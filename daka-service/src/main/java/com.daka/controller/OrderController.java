@@ -1,7 +1,9 @@
 package com.daka.controller;
 
+import com.daka.model.OrderModel;
 import com.daka.model.ResponseModel;
 import com.daka.model.UserModel;
+import com.daka.service.OrderService;
 import com.daka.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,21 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @Autowired
-    private UserService userService;
+    private OrderService orderService;
 
     @PostMapping("queryOrderList")
-    public ResponseModel queryOrderList(){
-        ResponseModel responseModel = new ResponseModel();
-        System.out.println("login");
-        return responseModel;
+    public ResponseModel queryOrderList(@RequestBody OrderModel order){
+        return orderService.queryOrderList(order);
     }
 
-    @PostMapping("insertUser")
-    public ResponseModel insertUser(@RequestBody UserModel user){
-        ResponseModel responseModel = new ResponseModel();
-
-        userService.insertUser(user);
-
-        return responseModel;
+    @PostMapping("addOrder")
+    public ResponseModel addOrder(@RequestBody OrderModel order){
+        return orderService.addOrder(order);
     }
 }

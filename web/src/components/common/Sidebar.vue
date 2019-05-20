@@ -52,12 +52,12 @@
                     {
                         icon: 'el-iconfont-treadmill',
                         index: 'queryShopList',
-                        title: '商铺列表'
+                        title: '售后列表'
                     },
                     {
                         icon: 'el-iconfont-apple',
                         index: 'queryFoodList',
-                        title: '食品列表'
+                        title: '账单列表'
                     },
                     {
                         icon: 'el-iconfont-cross_leg',

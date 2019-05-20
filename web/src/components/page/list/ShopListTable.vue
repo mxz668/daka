@@ -2,16 +2,16 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i> 商铺列表</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i> 售后列表</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">
-                    批量删除
-                </el-button>
+                <!--<el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">-->
+                    <!--批量删除-->
+                <!--</el-button>-->
                 <el-button type="primary" icon="add" class="handle-del mr10" @click="handleAdd">
-                    新增商铺
+                    新增
                 </el-button>
                 <!--<el-select v-model="select_cate" placeholder="筛选类型" class="handle-select mr10">-->
                     <!--<el-option key="1" label="配送" value="1"></el-option>-->
@@ -22,8 +22,10 @@
             </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="40" align="center"></el-table-column>
-                <el-table-column prop="shopName" label="商铺名称" align="center"/>
-                <el-table-column prop="address" label="地址" align="center"/>
+                <el-table-column prop="shopName" label="客户账号" align="center"/>
+                <el-table-column prop="address" label="客服名称" align="center"/>
+                <el-table-column prop="address" label="售后原因" align="center"/>
+                <el-table-column prop="address" label="处理结果" align="center"/>
                 <el-table-column prop="createTime" :formatter="dateFormat" label="创建时间"/>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">

@@ -21,7 +21,11 @@
                 <el-table-column prop="orderSeq" label="订单号" align="center" width="120"/>
                 <el-table-column prop="consumerName" label="客户账号" align="center" width="100"/>
                 <el-table-column prop="mark" label="备注" align="center"/>
-                <el-table-column prop="pic" label="设计图" align="center"/>
+                <el-table-column prop="pic" label="设计图" align="center">
+                    <template slot-scope="scope">
+                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558174630951&di=8f560cc02eb9d2ba9148720f2bde213b&imgtype=0&src=http%3A%2F%2Fs8.sinaimg.cn%2Fmw690%2F0066GGChgy6UddzyM1Fe7" width="130" />
+                    </template>
+                </el-table-column>
                 <el-table-column prop="price" label="价格" align="center"/>
                 <el-table-column prop="address" label="地址" align="center"/>
                 <el-table-column label="操作" width="180" align="center">
@@ -60,7 +64,7 @@
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
+                <el-button type="primary" @click="saveAdd">确 定</el-button>
             </span>
         </el-dialog>
         <!-- 编辑弹出框 -->
@@ -69,17 +73,14 @@
                 <el-form-item label="订单号">
                     <el-input v-model="form.orderSeq"></el-input>
                 </el-form-item>
-                <el-form-item label="consumerName">
+                <el-form-item label="客户账号">
                     <el-input v-model="form.consumerName"></el-input>
                 </el-form-item>
-                <el-form-item label="shopName">
-                    <el-input v-model="form.shopName"></el-input>
+                <el-form-item label="备注">
+                    <el-input type="textarea" v-model="form.mark"></el-input>
                 </el-form-item>
-                <el-form-item label="类型">
-                    <el-input v-model="form.delivery"></el-input>
-                </el-form-item>
-                <el-form-item label="配送时间">
-                    <el-input v-model="form.deliveryDate"></el-input>
+                <el-form-item label="设计图">
+                    <el-input v-model="form.pic"></el-input>
                 </el-form-item>
                 <el-form-item label="价格">
                     <el-input v-model="form.price"></el-input>
@@ -126,12 +127,10 @@
                     id: "",
                     orderSeq:"",
                     consumerName:"",
-                    shopName:"",
-                    delivery:"",
-                    deliveryDate:"",
-                    price:"",
-                    address:"",
-                    status:""
+                    mark: "",
+                    pic: "",
+                    price: "",
+                    address: ""
                 },
                 idx: -1
             }
@@ -169,8 +168,9 @@
                     pageSize : this.pageSize,
                     consumerName : this.select_word
                 }).then((res) => {
-                    this.tableData = res.data.data.list;
-                    this.totalCount = res.data.data.totalCount;
+                    debugger
+                    this.tableData = res.data.respData;
+                    // this.totalCount = res.data.data.totalCount;
                 })
             },
             search() {
@@ -217,9 +217,7 @@
                     "id": item.id,
                     "orderSeq": item.orderSeq,
                     "consumerName": item.consumerName,
-                    "shopName": item.shopName,
-                    "delivery": item.delivery,
-                    "deliveryDate": item.deliveryDate,
+                    "mark": item.mark,
                     "price": item.price,
                     "address": item.address,
                     "status": item.status
@@ -243,13 +241,24 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            // 新增
+            saveAdd() {
+                var editUrl = "/order/addOrder";
+                this.$axios.post(editUrl, this.form).then((res) => {
+                    if(res.rspCode == "0000"){
+                        this.$message.success(`修改成功`);
+                    }
+                });
+                this.tableData.push(this.form);
+                this.addVisible = false;
+            },
             // 保存编辑
             saveEdit() {
                 this.$set(this.tableData, this.idx, this.form);
                 this.editVisible = false;
                 var editUrl = "/order/editOrder";
                 this.$axios.post(editUrl, this.form).then((res) => {
-                    if(res.rspCode == "000000"){
+                    if(res.rspCode == "0000"){
                         this.$message.success(`修改成功`);
                     }
                 })
